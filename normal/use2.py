@@ -7,15 +7,15 @@ import pinyin
 
 
 # jieba.enable_paddle()
-jieba.load_userdict('dict_modified.txt')
+jieba.load_userdict('normal/dict_modified.txt')
 
 
-import variables
+from .variables import variables
 
 # 标点符号等常量
-PUNCTUATION_LIST = variables.variables().PUNCTUATION_LIST
-phrase_freq = variables.variables().phrase_freq
-cn_words_dict = variables.variables().cn_words_dict
+PUNCTUATION_LIST = variables().PUNCTUATION_LIST
+phrase_freq = variables().phrase_freq
+cn_words_dict = variables().cn_words_dict
 
 
 # 统计个单词的词频
@@ -191,7 +191,7 @@ def load_synonyms():
     # with open('synonyms.txt', 'r', encoding='utf-8') as f:
     #     synonyms = eval(f.read())
     # return synonyms
-    return variables.variables().synonyms
+    return variables().synonyms
 
 
 def cut(s):
@@ -203,7 +203,7 @@ def cut(s):
     return None
 
 
-def compare(s_words, t_words, is_one_pair=False, num=0):
+def _compare(s_words, t_words, is_one_pair=False, num=0):
     """
     这是实现比较功能的函数，将两个句子切片后的列表分别传入
     :param s_words: 先被切片的列表
@@ -292,7 +292,7 @@ def compare(x_error, y_error):
     # y_error = '蚂蚁花呗关闭了。怎么开通另一个'
 
     # while True:
-        # x_error, y_error = input(), input() 
+        # x_error, y_error = input(), input()
     print('分词结果：')
     print(jieba.lcut(x_error))
     print(jieba.lcut(y_error))
@@ -316,11 +316,11 @@ def compare(x_error, y_error):
             is_similar_sentence = 0
     if is_similar_sentence == 0:
         # print(compare(s_words, t_words, True, not_the_same_part))
-        return compare(s_words, t_words, True, not_the_same_part)
+        return _compare(s_words, t_words, True, not_the_same_part)
     else:
         s_words, t_words = jieba.analyse.extract_tags(s), jieba.analyse.extract_tags(t)
         # print(compare(s_words, t_words))
-        return compare(s_words, t_words)
+        return _compare(s_words, t_words)
 
 
     # break # debug

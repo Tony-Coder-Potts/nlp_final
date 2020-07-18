@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from normal import views as normal_
+from word2vec import views as word2vec_
+from lstm_method import views as lstm_
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('lstm_method/', lstm_.lstm),
+    path('normal/', normal_.normal),
+    path('word2vec/',word2vec_.word2vec),
 ]

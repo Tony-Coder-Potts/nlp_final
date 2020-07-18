@@ -10,11 +10,11 @@
 #     print('%r\t%r\t%.2f' % (w1, w2, word2vec_model.similarity(w1, w2)))
 print('开始加载')
 
-with open('word2vec', 'rt', encoding='utf-8') as f:
+with open('word2vec/word2vecs', 'rt', encoding='utf-8') as f:
     for line in f:
         word2vec = eval(line)
 stop_words = []
-with open('stop_words.txt', 'rt', encoding='utf-8') as f:
+with open('word2vec/stop_words.txt', 'rt', encoding='utf-8') as f:
     for line in f:
         line = line[:len(line) - 1]
         stop_words.append(line)
@@ -25,7 +25,7 @@ import numpy as np
 from numpy import dot
 from numpy.linalg import norm
 
-jieba.load_userdict('user_dict.txt')
+jieba.load_userdict('word2vec/user_dict.txt')
 cosine = lambda a, b: dot(a, b) / (norm(a) * norm(b))
 
 print('加载完成')
